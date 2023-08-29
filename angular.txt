@@ -1,0 +1,308 @@
+==========
+commands
+==========
+->    ng    new    <app-name>        (    create    the    app)
+->    ng    serve                (    to    compile    and    run    and    render    the    app)
+
+http:/localhost:4200//
+->    ng    generate    component    <component    name>    (    to    create    the    new    component    form    angular    cli).
+                                        (or)
+                ng    g    c    <component    name>
+
+
+
+
+=======================================================================================
+======================
+Building    blocks    of    Angular
+======================
+
+=>        Component        is        typescript        class        which        is        responsible        to        handle        requests        that        are        coming        from        template.
+
+=>        template        is        a        html        file        that        contains        presentation        Logic.
+
+=>        Data        binding        is        used        to        bind        the        data        between        the        component        and        template.        component        properties        will        be
+                            binded        to        html        elements        for        data        binding.        
+
+=>        Service        is        TypeScript        class        which        contains        the        re-usable        bussiness        logic.
+
+=>        Dependency        injection        is        used        for        injecting        service        class        object        into        component        class        object.
+
+=>        Data        about        the        data        is        called        as        METADATA.        Relaation        between        component        and        templeate        will        be    
+                        maintained        in        meta        data.
+
+=>        Directives        are        used        to        manuplate        the        DOM(document        object        model)        elements.
+
+=>        Pipes        are        used        to        transform        the        data        before        displaying        in        the        template.
+
+=>    Collection    of    Components    is    called    Module.
+
+=>    Routings    are    used    to    naviagte    from    one    page    to    another    page.
+
+-----------------------------------------------------------------
+Package.json
+------------------------------------------------------------------
+=>    The    package.json    file    represents    the    configuration    settings    /meta    data    of    application.
+
+=>    Angular    application    dependencies    will    be    configured    in    package.json    file
+
+=>    In    package.json    file    contains    'Dependencies'    and    'dev-Dependencies'.
+                        **Dependencies        are    for    run    the    angular    app.
+                        **    Dev-Dependencies    for    the    developing    the    angular    app.
+
+-----------------------
+Angular    packages
+------------------------
+@angular/core
+@angular/common
+@angular/compiler
+@angular/platform-browser
+@angular/platform-browser-dynamic
+@angular/forms
+@angular/routing
+@angular/material
+@angular/http
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+tsconfig.json
+------------------
+
+->tsconfig.json    file    is    used    to    set    configurations    for    typescript    compiler.
+->    typescript    compiler        will    read    tsconfig.file    and    then    it    compiles        all    .ts    files    to    .js    files.
+
+----------------------------------------------------------------------------------------------------------------
+tslint.json
+---------------
+->    this    file    contains    configuration    settings    for    'lint'    tool    which    is    used    to    verify    the    weather    the    typescript    files    are    following    
+a    set    of        coding    standards    or    not
+------------------------------------------------------------------------------------------------------------------
+karma.config.js    
+---------------------
+->    this    file    contains    the    configuration    settings    for    'karma'    tool    to    which    is    used    to    excetue    the    unit    test    cases    or    multiple    
+                    browsers.
+----------------------------------------------------------------------------------------------------------------
+Angular.json
+----------------
+->    this    file    contains    configurations    settings    for        "@angular/cli"    tool    which    is    used    for    create    ,compile    
+and    run    angular    applications.
+->this    file    contains    settings    for    such    as    home    page(index.html)    and    startup    file    (main.ts)    ,    css    file    (style.css)    ..etc
+
+
+=============================================================
+=============================================================
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+src/styles.css
+------------------
+->    this        file    contains    cascading    styles    for    which    it    is    applicable        for    entire    application.
+---------------------------------------------------------------------------------------------------------------------------
+src/index.html
+-------------------
+->    this    file        is    home    page(start    up    page)    for    the    entire    applicaation.
+->    the    content    of    the    entire    application        will    be    displayed        in    index.html        file    only
+
+------------------------------------------------------------------------------------------------------------------------------
+src/main.ts
+--------------
+->        this    file    is    going    to    bootstrap    the    application    (    mean    the    starting    point    of    application).
+
+
+
+
+============================================================================
+start    up    module    in    angular
+------------------------------------
+->    Angular    application    can    contains    any    number    of    modules
+->    Angular    application    execution    is    start    from    the    'App    Module'.
+->    'App    module'    is    called    as    'Startup    module'    of    angular    app.
+->    the    process    of    executing    the    'Startup    module'    is    called    as    "    bootstraping    ".    
+
+Syntax    :            platformBrowserDynamic().bootstrapModule(AppModule)
+                                                                            .catch(err    =>    console.error(err));
+
+
+
+======================================================================================
+==============
+COMPONENTS
+==============
+=>        Components    represent    the        certain    section    of    webpage.
+=>        for    example    "login    page"    is    represented    as    "Login    component"    .    
+                                            "registration    page"    is    represented    as    "registration    component".
+
+
+**Component    Structure
+**when    we    create    the    component    then    below    files    will    be    created.
+
+<component-name>.component.ts                          (  represents  properties  and  methods)
+<component-name>.component.html                  (presentation)
+<component-name>.component.css                      (Styles)
+<component-name>.component.spec.ts          (unit  testing)
+
+Q)    How    to    invoke    the    component    in    web-page?
+A)    A    component    will    be    invoked    using    'selector'    tags.    we    can    find    the    selector    tags    in    component.ts    file.
+
+Q)  How  to  represent  the  typeScript  class  as    Component?
+A)  To  represent  the  typeScript  class  as  component  we  will  use    @Component  as  Decorator(Anotations).
+
+
+-----------------------------------------------------
+Syntax  to  create  a  component
+------------------------------------------------------
+import  {Component}    from  "@angular/core";
+
+@Component
+class    ClassName{
+
+                    property:datatype=value;
+                    method(args)  :  returnType{
+                    //  logic;
+                  }
+}
+
+
+------------------------------------------------------------------
+MetaData  properties  of  @Component
+------------------------------------------------------------------
+@Component({
+        selector  :  'app-root  ',
+        templateUrl  :  './app.component.html',
+        styleUrls:  [  './app.component.css']
+})
+
+->      'selector'  represents  a  tag  which  is  used  to  invoke  a  component.  
+->      'templateUrl'  represents  html  file  that  has  to    be  rendedred  when  the  component  is  invoked  .
+->      'styleUrls'  represents  the  css  files  that  should    be  loaded    for  template.
+
+
+=======================================================================================
+==============
+DATA  BINDINGS
+==============
+=>  data  bindings  is  a  technique  which  is  used  to  establish  a    realtion  between  the  component  and  template.
+=>  component  is  a  typescript  class
+=>  template  is  a  html  file.
+=>  By  using  data  binding  technique    we  can  send  data    from  component  class  to  template  file  and  vice  versa.
+
+                                                                                    Data  binding
+                    COMPONENT  <=============================>  Template  file
+
+=>  if  "Component"  is  changed  then  "template"  will  change  automatically  .  the  process  is  vice  versa.
+
+=>  DATA  BINDING  is  four  type  :
+		
+			1)  Interpolation
+			2)  Property  binding
+			3)  Event  binding
+			4)  Two  Way  binding
+--------------------------
+Interpolation:
+-------------------------
+=>  it  is  used  to  display  variable/property  value  in  template.
+=>  If  the  varible/property  value  is  changed  in  component  then  immediately    it  will  updated  in  template.
+		
+		syntax:  {{msg}}
+
+
+-------------------------
+Property  Binding
+-------------------------
+=>  Property  binding  is  used  to  send  the  data  from  component  to  template  and  assign  the  same  into  the  attribute  
+            of  tag.
+=>  If  the  property  value  is  changed  then  immediately  it  will  be  updated  in  template.
+
+	Syntax:      [attribute]  =  *property
+
+----------------------
+Event  binding  
+----------------------
+=>  It  is  used  to  pass  event  notification  from  template  to  component.
+	syntax:    <tag(event)="method(  )">  </tag>
+
+
+---------------------------------
+Two-way  Data  Binding
+---------------------------------
+=>  two  way  binding  is  the  combination  of  both  property  and  event  binding.
+
+=>  to  achieve    two-way  data  binding  we  have  a  "ngModel"  directive.
+
+=>  Two-way  data  binding  is  applicable  only  for  <input/>  and  <select/>  tags.      
+
+=>  to  use  the  Two-way  data  binding  we  must  import  the  "forms  Module".
+
+------------------------------------------------------------------------------------------------
+=>  Import  "forms  module"    in  app.component.ts  file.
+=>  Declare  properties  and  methods  in  app.component.ts  file
+=>  write  presentation  logic    in  app.component.html  file.
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+Process    of  Developing  a  Front  end  angular  app  as  login
+---------------------------------------------------------------------------------------------------------------------------------------
+=>  Create  Angular  App  use  the  below  command.
+                                  Syntax:  ng  new  <login-app>
+
+=>  Import  "Forms  Module"  in  app.module.ts  file.
+
+=>  write  properties  and  Methods  related  to  login  screen  template  in  app.component.ts  file
+
+=>  Write  Presentation  logic  in  app.component.html  file
+
+=>  Run  the  angular  app  using  
+
+		syntax:  ng  serve
+
+=>  Open  the  browser  and  access  the  below  url
+		
+		http://localhost/4200
+
+======================================================================================
+DIRECTIVES
+---------------------------------------------------------------------------------------------------------------------------------------
+=> Directives are used to manipulate DOM elements.
+
+=> DOM stands for Document Object Model.
+
+=> Angular FrameWork provided several predefined Directives.
+
+-> 'style' directive is used to set CSS property value dynamically at runtime. When the value of the 
+	component property is changed the value of css property will be changed.
+	
+-> 'ngClass' directive is used to set CSS classname dynamically  at runtime. This directive is used to set Styles  with 
+	multiple properties ,conditionally at runtime.
+
+-> 'ngIf ' is used to display an element when condition is 'true'.
+
+-> 'ngIf and else' is used to display one element when condition is 'true' and display another element when 
+     condition is 'false'.
+
+-> 'ngSwitch' is used to display content bases on variable value matched with a case.
+
+-> 'ngFor' is used to execute  logic repeatedly.( in a loop). we have prefix "*" before ngFor directive.
+	Ex:  arrayname =[val1,val2,val3,......]
+
+	<tag *ngFor="let variable of arrayname">
+
+	</tag>
+
+==========================================================================================
+Services
+-----------------
+=> Service is a class which contains the reusable bussiness logic.
+
+=> Multiple classes can access service class which contains bussiness logic.
+
+=> We will decorate service class with @Injectable anotation so that  other classes can acesses service class using
+	@Inject anotation.
+
+
