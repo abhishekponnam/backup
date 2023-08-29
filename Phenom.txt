@@ -1,0 +1,305 @@
+Sure, here is the pseudocode solution for the distance calculator engine:
+
+```python
+def calculate_shortest_route(start_station, end_station, routes):
+  """
+  Calculates the shortest route between the start station and the end station.
+
+  Args:
+    start_station: The start station.
+    end_station: The end station.
+    routes: A list of routes between stations.
+
+  Returns:
+    The shortest route between the start station and the end station.
+  """
+
+  # Validate the input data.
+  if start_station not in routes or end_station not in routes:
+    raise ValueError("Invalid start or end station")
+
+  # Initialize the shortest route.
+  shortest_route = []
+  shortest_distance = float("inf")
+
+  # Iterate over all the routes.
+  for route in routes:
+    current_route = []
+    current_distance = 0
+
+    # Add the start station to the current route.
+    current_route.append(start_station)
+
+    # Iterate over the route.
+    for station in route:
+      if station == end_station:
+        # If the current route reaches the end station, check if it's shorter than the shortest route so far.
+        if current_distance < shortest_distance:
+          shortest_route = current_route
+          shortest_distance = current_distance
+
+      # Add the station to the current route and update the distance.
+      current_route.append(station)
+      current_distance += route[station]
+
+  # Return the shortest route.
+  return shortest_route
+
+def post_shortest_route(start_station, end_station, shortest_route, distance):
+  """
+  Posts the shortest route to the API endpoint.
+
+  Args:
+    start_station: The start station.
+    end_station: The end station.
+    shortest_route: The shortest route.
+    distance: The distance of the shortest route.
+  """
+
+  # Create the payload.
+  payload = {
+    "start_station": start_station,
+    "end_station": end_station,
+    "shortest_route": shortest_route,
+    "distance": distance
+  }
+
+  # Post the payload to the API endpoint.
+  response = requests.post("https://trainroutes.com/calculated_route", json=payload)
+
+  # Validate the response.
+  if response.status_code != 200:
+    raise ValueError("Error posting shortest route")
+
+  # Return the response.
+  return response
+
+def main():
+  # Get the input data from the API endpoint.
+  response = requests.get("https://trainroutes.com/get_route")
+  data = json.loads(response.content)
+
+  # Calculate the shortest route.
+  shortest_route = calculate_shortest_route(data["start_station"], data["end_station"], data["routes"])
+
+  # Post the shortest route to the API endpoint.
+  response = post_shortest_route(data["start_station"], data["end_station"], shortest_route, data["distance"])
+
+  # Print the response.
+  print(response.content)
+
+if __name__ == "__main__":
+  main()
+```
+
+This pseudocode solution first validates the input data from the API endpoint. Then, it calculates the shortest route between the start station and the end station. Finally, it posts the shortest route to the API endpoint.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+struct Route {
+  string start;
+  string end;
+  int distance;
+};
+
+vector<Route> routes;
+
+void calculate_shortest_route(string start_station, string end_station, vector<Route>& routes) {
+  // Validate the input data.
+  if (start_station.empty() || end_station.empty() || routes.empty()) {
+    throw invalid_argument("Invalid start or end station");
+  }
+
+  // Initialize the shortest route.
+  vector<string> shortest_route;
+  int shortest_distance = INT_MAX;
+
+  // Iterate over all the routes.
+  for (auto route : routes) {
+    vector<string> current_route;
+    int current_distance = 0;
+
+    // Add the start station to the current route.
+    current_route.push_back(start_station);
+
+    // Iterate over the route.
+    for (auto station : route) {
+      if (station == end_station) {
+        // If the current route reaches the end station, check if it's shorter than the shortest route so far.
+        if (current_distance < shortest_distance) {
+          shortest_route = current_route;
+          shortest_distance = current_distance;
+        }
+      }
+
+      // Add the station to the current route and update the distance.
+      current_route.push_back(station);
+      current_distance += route[station];
+    }
+  }
+
+  // Print the shortest route.
+  cout << "The shortest route is " << shortest_route << endl;
+}
+
+int main() {
+  // Get the input data from the API endpoint.
+  cout << "Enter the start station: ";
+  string start_station;
+  cin >> start_station;
+
+  cout << "Enter the end station: ";
+  string end_station;
+  cin >> end_station;
+
+  // Read the routes from the file.
+  cout << "Enter the routes: ";
+  while (true) {
+    string route;
+    cin >> route;
+    if (route.empty()) {
+      break;
+    }
+
+    // Split the route into start, end, and distance.
+    int index = route.find(",");
+    string start = route.substr(0, index);
+    string end = route.substr(index + 1);
+    int distance = stoi(route.substr(index + 2));
+
+    // Add the route to the list.
+    routes.push_back({start, end, distance});
+  }
+
+  // Calculate the shortest route.
+  calculate_shortest_route(start_station, end_station, routes);
+
+  return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def calculate_shortest_route(start_station, end_station, routes):
+  """
+  Calculates the shortest route between the start station and the end station.
+
+  Args:
+    start_station: The start station.
+    end_station: The end station.
+    routes: A list of routes between stations.
+
+  Returns:
+    The shortest route between the start station and the end station.
+  """
+
+  # Validate the input data.
+  if start_station not in routes or end_station not in routes:
+    raise ValueError("Invalid start or end station")
+
+  # Initialize the shortest route.
+  shortest_route = []
+  shortest_distance = float("inf")
+
+  # Iterate over all the routes.
+  for route in routes:
+    current_route = []
+    current_distance = 0
+
+    # Add the start station to the current route.
+    current_route.append(start_station)
+
+    # Iterate over the route.
+    for station in route:
+      if station == end_station:
+        # If the current route reaches the end station, check if it's shorter than the shortest route so far.
+        if current_distance < shortest_distance:
+          shortest_route = current_route
+          shortest_distance = current_distance
+
+      # Add the station to the current route and update the distance.
+      current_route.append(station)
+      current_distance += route[station]
+
+  # Return the shortest route.
+  return shortest_route
+
+def post_shortest_route(start_station, end_station, shortest_route, distance):
+  """
+  Posts the shortest route to the API endpoint.
+
+  Args:
+    start_station: The start station.
+    end_station: The end station.
+    shortest_route: The shortest route.
+    distance: The distance of the shortest route.
+  """
+
+  # Create the payload.
+  payload = {
+    "start_station": start_station,
+    "end_station": end_station,
+    "shortest_route": shortest_route,
+    "distance": distance
+  }
+
+  # Post the payload to the API endpoint.
+  response = requests.post("https://trainroutes.com/calculated_route", json=payload)
+
+  # Validate the response.
+  if response.status_code != 200:
+    raise ValueError("Error posting shortest route")
+
+  # Return the response.
+  return response
+
+def main():
+  # Get the input data from the API endpoint.
+  response = requests.get("https://trainroutes.com/get_route")
+  data = json.loads(response.content)
+
+  # Calculate the shortest route.
+  shortest_route = calculate_shortest_route(data["start_station"], data["end_station"], data["routes"])
+
+  # Post the shortest route to the API endpoint.
+  response = post_shortest_route(data["start_station"], data["end_station"], shortest_route, data["distance"])
+
+  # Print the response.
+  print(response.content)
+
+if __name__ == "__main__":
+  main()
